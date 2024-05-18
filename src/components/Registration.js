@@ -1,7 +1,7 @@
 import "./Registration.css"
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {useHistory } from 'react-router-dom'
 const Register = () => {
 
    const [name, setName] = useState(" ");
@@ -10,6 +10,8 @@ const Register = () => {
    const [password, setPassword] = useState(" ");
    const [location, setLocation] = useState(" ");
    const [role, setRole] = useState(" ");
+
+const history = useHistory ();
 
 async function SignUp(){
   let item = {name, email, mobile, password, location, role}
@@ -24,26 +26,14 @@ async function SignUp(){
   });
   result = await result.json();
   console.warn("result", result)
+
+  localStorage.setItem("user-info", JSON.stringify(result));
+
+  history("/add")
 }
 
   return (
-    // <div className='col-sm-6 offset-sm-3'>
-    //   <h1>Sign Up</h1>
-    //   <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className='form-comtrol' />
-    //   <br /> 
-    //   <input type="email" value={email}onChange={(e)=>setEmail(e.target.value)} className='form-comtrol' />
-    //   <br /> 
-    //   <input type="number" value={mobile}onChange={(e)=>setMobile(e.target.value)} className='form-comtrol' />
-    //  <br />
-    //   <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className='form-comtrol' />
-    //  <br />
-    //  <input type="text" value={location}onChange={(e)=>setLocation(e.target.value)} className='form-comtrol' />
-    // <br />
-    //  <input type="text" value={role}onChange={(e)=>setRole(e.target.value)} className='form-comtrol' />
-    // <br />
-    //   <button onClick={SignUp} className='btn btn-primary'>Sign Up</button>
-    // </div>
-    <div className="signup-container col-sm-6 offset-sm-3">
+        <div className="signup-container col-sm-6 offset-sm-3">
     <h1>Sign Up</h1>
     <form>
       <div className="form-group mb-3">
